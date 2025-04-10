@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Issue Tracker</title>
+  <style>
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: yellow; /* Changed background to yellow */
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* Full viewport height */
+      color: #333;
+    }
+
+    nav {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      text-align: center;
+      background-color: #4a90e2;
+      padding: 10px 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #357ab8;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #4a90e2;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center align the form */
+      gap: 15px;
+    }
+
+    input, textarea, select {
+      width: 100%; /* Full width */
+      max-width: 500px; /* Limit width */
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      background-color: #f9f9f9;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #4a90e2;
+      outline: none;
+    }
+
+    button {
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      background-color: #28a745;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="issues.html">View Reported Issues</a>
+  </nav>
+
+  <div class="container">
+    <h1>Community Issue Tracker</h1>
+    <form id="issueForm">
+      <input type="text" id="title" placeholder="Issue Title" required />
+      <textarea id="description" placeholder="Describe the issue" required></textarea>
+      <select id="category">
+        <option value="Road">Road</option>
+        <option value="Electricity">Electricity</option>
+        <option value="Sanitation">Sanitation</option>
+        <option value="Water Supply">Water Supply</option>
+        <option value="Other">Other</option>
+      </select>
+      <button type="submit">Submit Issue</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("issueForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const title = document.getElementById("title").value;
+      const description = document.getElementById("description").value;
+      const category = document.getElementById("category").value;
+
+      const issue = {
+        id: Date.now(),
+        title,
+        description,
+        category
+      };
+
+      let issues = JSON.parse(localStorage.getItem("issues")) || [];
+      issues.push(issue);
+      localStorage.setItem("issues", JSON.stringify(issues));
+
+      this.reset();
+    });
+  </script>
+</body>
+</html>
